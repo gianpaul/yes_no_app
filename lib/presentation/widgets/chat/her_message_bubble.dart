@@ -14,7 +14,7 @@ class HerMessageBubble extends StatelessWidget {
           decoration: BoxDecoration(
               color: colors.secondary, borderRadius: BorderRadius.circular(20)),
           child: const Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             child: Text(
               "lorem ipsum dolor sit amet her message bubble ",
               style: TextStyle(color: Colors.white),
@@ -22,7 +22,8 @@ class HerMessageBubble extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 5),
-        _ImageBubble()
+        _ImageBubble(),
+        const SizedBox(height: 10)
       ],
     );
   }
@@ -36,11 +37,19 @@ class _ImageBubble extends StatelessWidget {
     return ClipRRect(
         borderRadius: BorderRadius.circular(20),
         child: Image.network(
-          "https://yesno.wtf/assets/yes/8-2f93962e2ab24427df8589131da01a4d.gif",
-          width: size.width * 0.5,
-          height: size.height * 0.2,
-          fit: BoxFit.cover,
-        )
-    );
+            "https://yesno.wtf/assets/yes/8-2f93962e2ab24427df8589131da01a4d.gif",
+            width: size.width * 0.5,
+            height: size.height * 0.2,
+            fit: BoxFit.cover,
+            loadingBuilder: (context, child, loadingProgress) {
+          if (loadingProgress == null) return child;
+
+          return Container(
+            width: size.width * 0.5,
+            height: size.height * 0.2,
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+            child: const Text("Rhaenyra Targaryen esta escribiendo..."),
+          );
+        }));
   }
 }
